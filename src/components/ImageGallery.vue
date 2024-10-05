@@ -66,12 +66,28 @@ export default defineComponent({
 
         <!-- Modal to display the selected image -->
         <div v-if="modalVisible" class="modal" @click="closeModal">
-            <img :src="selectedImage?.urls.regular" alt="Selected Image" class="modal-image" />
+
+            <div class="modal-container">
+
+                <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="close-icon">
+                    <path
+                        d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z" />
+                </svg>
+
+
+                <img :src="selectedImage?.urls.regular" alt="Selected Image" class="modal-image" />
+
+                <div class="modal-image-info">
+                    <p class="author">{{ selectedImage.user.name }}</p>
+                    <p class="description">{{ selectedImage.description }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -96,7 +112,50 @@ export default defineComponent({
 }
 
 .modal-image {
-    max-width: 90%;
+
+    // width: 500px;
+    height: 500px;
     max-height: 90%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+}
+
+.modal-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    // overflow: hidden;
+    position: relative;
+    /* padding: 20px; */
+}
+
+.modal-image-info {
+    padding: 20px;
+
+    .author {
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+}
+
+.close-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: -50px;
+    top: 0;
+    fill: #ffffff;
+    z-index: 2;
+    cursor: pointer;
 }
 </style>
