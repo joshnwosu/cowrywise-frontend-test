@@ -1,30 +1,44 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import OverlapBG from './components/OverlapBG.vue';
+import Search from './components/Search.vue';
+import SkeletonLoader from './components/SkeletonLoader.vue';
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+
+  <OverlapBG />
+
+  <div class="main">
+
+    <Search />
+
+    <div class="gallery">
+
+
+      <!-- Skeleton loader for loading state -->
+      <SkeletonLoader v-for="n in 8" :key="n" />
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style lang="scss" scoped>
+.main {
+  position: relative;
+  width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  grid-auto-flow: dense;
+  grid-template-rows: subgrid;
+  width: 900px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  /* Alternative to achieve the masonry effect */
 }
 </style>
