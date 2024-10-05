@@ -10,15 +10,19 @@ const unsplashApi = axios.create({
   },
 });
 
+// Fetch images based on query
 export const fetchImages = async (query: string = '', perPage: number = 8) => {
   try {
-    const response = await unsplashApi.get('/photos', {
+    const response = await unsplashApi.get('/search/photos', {
+      // Use /search/photos endpoint
       params: {
         query,
+        order_by: 'latest', // Order results by latest
         per_page: perPage,
       },
     });
-    return response.data;
+    // console.log('Hi: ', response);
+    return response.data.results; // Return the results array
   } catch (error) {
     console.error('Error fetching images:', error);
     throw error; // Propagate the error for handling in components
