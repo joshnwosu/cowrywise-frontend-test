@@ -9,6 +9,9 @@
             <template v-if="loading">
                 <SkeletonLoader v-for="n in 8" :key="n" />
             </template>
+
+
+            <ImageModal :visible="modalVisible" :image="selectedImage" @close="closeModal" />
         </gallery-wrapper>
     </Container>
 </template>
@@ -23,12 +26,15 @@ import { useRoute } from 'vue-router';
 import OverlapBG from '../components/shared/OverlapBG.vue';
 import GalleryWrapper from '../components/shared/GalleryWrapper.vue';
 import Container from '../components/shared/Container.vue';
+import ImageModal from '../components/ImageModal.vue';
 
 export default defineComponent({
-    components: { ImageCard, SkeletonLoader, OverlapBG, GalleryWrapper, Container },
+    components: { ImageCard, SkeletonLoader, OverlapBG, GalleryWrapper, Container, ImageModal },
     props: ['query'],
     setup() {
+        const modalVisible = ref(false);
         const images = ref<UnsplashImage[]>([]);
+        const selectedImage = ref<UnsplashImage | null>(null);
         const loading = ref(false);
         const route = useRoute();
 
@@ -45,7 +51,13 @@ export default defineComponent({
         };
 
         const showImage = (image: UnsplashImage) => {
-            console.log('selected image: ', image)
+            selectedImage.value = image;
+            modalVisible.value = true
+        };
+
+        const closeModal = () => {
+            modalVisible.value = false;
+            selectedImage.value = null;
         };
 
         // Watch for changes in the route params and reload images when the query changes
@@ -68,7 +80,10 @@ export default defineComponent({
 
 
         return {
+            modalVisible,
+            selectedImage,
             showImage,
+            closeModal,
             images,
             loading,
         };
