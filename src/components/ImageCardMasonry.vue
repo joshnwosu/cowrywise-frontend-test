@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent } from 'vue';
 import { UnsplashImage } from '../types/unsplashImage';
 
 export default defineComponent({
