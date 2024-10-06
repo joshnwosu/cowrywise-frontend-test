@@ -10,23 +10,24 @@
         </template>
 
         <gallery-wrapper>
-            <ImageCard v-for="image in images" :key="image.id" :image="image" @click="showImage(image)" />
             <template v-if="loading">
-                <SkeletonLoader v-for="n in 8" :key="n" />
+                <skeleton-loader v-for="n in 8" :key="n" />
             </template>
-
-
-
-
-            <ImageModal :visible="modalVisible" :image="selectedImage" @close="closeModal" />
         </gallery-wrapper>
+
+        <masonry-wall v-if="!loading" :items="images" :ssr-columns="1" :column-width="250" :gap="30" class="masonry">
+            <template #default="{ item, index }">
+                <image-card-masonry :image="item" :index="index" @open-modal="showImage(item)" />
+            </template>
+        </masonry-wall>
+
+        <ImageModal :visible="modalVisible" :image="selectedImage" @close="closeModal" />
     </Container>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue';
 import { fetchImages } from '../services/api';
-import ImageCard from '../components/ImageCard.vue';
 import SkeletonLoader from '../components/SkeletonLoader.vue';
 import { UnsplashImage } from '../types/unsplashImage';
 import { useRoute } from 'vue-router';
@@ -34,9 +35,10 @@ import OverlapBG from '../components/shared/OverlapBG.vue';
 import GalleryWrapper from '../components/shared/GalleryWrapper.vue';
 import Container from '../components/shared/Container.vue';
 import ImageModal from '../components/ImageModal.vue';
+import ImageCardMasonry from '../components/ImageCardMasonry.vue';
 
 export default defineComponent({
-    components: { ImageCard, SkeletonLoader, OverlapBG, GalleryWrapper, Container, ImageModal },
+    components: { SkeletonLoader, OverlapBG, GalleryWrapper, Container, ImageModal, ImageCardMasonry },
     props: ['query'],
     setup() {
         const modalVisible = ref(false);
@@ -101,22 +103,8 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-.main {
-    position: relative;
-    width: 1000px;
-    margin: 0 auto;
-    padding: 30px;
-    z-index: 2;
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    /* Responsive columns */
-    grid-gap: 30px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 50px 20px;
+.masonry {
+    margin-top: -50px;
 }
 
 .search-title {
