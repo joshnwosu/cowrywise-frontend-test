@@ -10,14 +10,14 @@
             <img :src="image?.urls.regular" alt="Selected Image" class="modal-image" />
             <div class="modal-image-info">
                 <p class="author">{{ image?.user?.name || '' }}</p>
-                <p class="location" v-if="image.user.location">{{ image?.user?.location || '' }}</p>
+                <p class="location" v-if="image?.user?.location">{{ image?.user?.location || '' }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { UnsplashImage } from '../types/unsplashImage';
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
         },
     },
     emits: ['close'],
-    setup(props, { emit }) {
+    setup(_, { emit }) {
         const closeModal = () => {
             emit('close');
         };
