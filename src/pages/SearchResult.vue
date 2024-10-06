@@ -4,11 +4,18 @@
         <h1 class="search-title">Search Results for <span class="search-title-query"> "{{ $route.params.query }}"
             </span></h1>
 
+        <!-- Check if images array is empty -->
+        <template v-if="images.length === 0 && !loading">
+            <p class="no-results">No results found. Please try a different search!</p>
+        </template>
+
         <gallery-wrapper>
             <ImageCard v-for="image in images" :key="image.id" :image="image" @click="showImage(image)" />
             <template v-if="loading">
                 <SkeletonLoader v-for="n in 8" :key="n" />
             </template>
+
+
 
 
             <ImageModal :visible="modalVisible" :image="selectedImage" @close="closeModal" />
@@ -118,5 +125,13 @@ export default defineComponent({
     .search-title-query {
         color: #72788A
     }
+}
+
+.no-results {
+    margin-top: 150px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 700;
+    color: #72788A
 }
 </style>
