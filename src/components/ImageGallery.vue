@@ -6,10 +6,12 @@ import ImageCard from './ImageCard.vue';
 import { UnsplashImage } from '../types/unsplashImage';
 import SearchBar from './SearchBar.vue';
 import { useRouter } from 'vue-router';
-import OverlapBG from './OverlapBG.vue';
+import OverlapBG from './shared/OverlapBG.vue';
+import GalleryWrapper from './shared/GalleryWrapper.vue';
+import Container from "./shared/Container.vue"
 
 export default defineComponent({
-    components: { SkeletonLoader, ImageCard, SearchBar, OverlapBG },
+    components: { SkeletonLoader, ImageCard, SearchBar, OverlapBG, GalleryWrapper, Container },
     setup() {
         const images = ref<UnsplashImage[]>([]); // Ensure you use the UnsplashImage type
         const query = ref('');
@@ -79,14 +81,16 @@ export default defineComponent({
 
 <template>
     <OverlapBG />
-    <div class="main">
+    <Container>
         <SearchBar @search="searchImages" />
-        <div class="gallery">
+        <gallery-wrapper>
             <ImageCard v-for="image in images" :key="image.id" :image="image" @click="showImage(image)" />
 
             <!-- Skeleton loader for loading state -->
 
-            <SkeletonLoader v-if="loading" v-for="n in 8" :key="n" />
+            <template v-if="loading">
+                <SkeletonLoader v-for="n in 8" :key="n" />
+            </template>
 
             <!-- Modal to display the selected image -->
             <div v-if="modalVisible" class="modal" @click="closeModal">
@@ -107,29 +111,11 @@ export default defineComponent({
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </gallery-wrapper>
+    </Container>
 </template>
 
 <style lang="scss" scoped>
-.main {
-    position: relative;
-    width: 1000px;
-    margin: 0 auto;
-    padding: 30px;
-    z-index: 2;
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    /* Responsive columns */
-    grid-gap: 30px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 50px 20px;
-}
-
 .modal {
     position: fixed;
     top: 0;

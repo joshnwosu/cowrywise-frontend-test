@@ -1,14 +1,16 @@
 <template>
     <OverlapBG />
-    <div class="main">
+    <Container>
         <h1 class="search-title">Search Results for <span class="search-title-query"> "{{ $route.params.query }}"
             </span></h1>
 
-        <div class="gallery">
+        <gallery-wrapper>
             <ImageCard v-for="image in images" :key="image.id" :image="image" @click="showImage(image)" />
-            <SkeletonLoader v-if="loading" v-for="n in 8" :key="n" />
-        </div>
-    </div>
+            <template v-if="loading">
+                <SkeletonLoader v-for="n in 8" :key="n" />
+            </template>
+        </gallery-wrapper>
+    </Container>
 </template>
 
 <script lang="ts">
@@ -18,10 +20,12 @@ import ImageCard from '../components/ImageCard.vue';
 import SkeletonLoader from '../components/SkeletonLoader.vue';
 import { UnsplashImage } from '../types/unsplashImage';
 import { useRoute } from 'vue-router';
-import OverlapBG from '../components/OverlapBG.vue';
+import OverlapBG from '../components/shared/OverlapBG.vue';
+import GalleryWrapper from '../components/shared/GalleryWrapper.vue';
+import Container from '../components/shared/Container.vue';
 
 export default defineComponent({
-    components: { ImageCard, SkeletonLoader, OverlapBG },
+    components: { ImageCard, SkeletonLoader, OverlapBG, GalleryWrapper, Container },
     props: ['query'],
     setup() {
         const images = ref<UnsplashImage[]>([]);
