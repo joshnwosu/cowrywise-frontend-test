@@ -11,7 +11,7 @@ const unsplashApi = axios.create({
 });
 
 // Fetch images based on query
-export const fetchImages = async (query: string = '', perPage: number = 8) => {
+export const fetchImages = async (query: string = '', perPage: number = 18) => {
   try {
     const response = await unsplashApi.get('/search/photos', {
       // Use /search/photos endpoint

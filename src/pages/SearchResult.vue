@@ -41,7 +41,7 @@ export default defineComponent({
         const loadImages = async (query: string) => {
             try {
                 loading.value = true;
-                const data = await fetchImages(query, 8);
+                const data = await fetchImages(query);
                 images.value = data;
             } catch (error) {
                 console.error('Error loading images:', error);
