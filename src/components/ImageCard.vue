@@ -5,7 +5,7 @@
             <div class="overlay"></div>
             <div class="image-info">
                 <p class="author">{{ image.user.name }}</p>
-                <p class="location" v-if="image.description">{{ image.description }}</p>
+                <p class="location" v-if="image.user.location">{{ image.user.location }}</p>
             </div>
         </div>
     </div>

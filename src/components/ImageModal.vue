@@ -10,7 +10,7 @@
             <img :src="image?.urls.regular" alt="Selected Image" class="modal-image" />
             <div class="modal-image-info">
                 <p class="author">{{ image?.user?.name || '' }}</p>
-                <p class="description">{{ image?.description || '' }}</p>
+                <p class="location" v-if="image.user.location">{{ image?.user?.location || '' }}</p>
             </div>
         </div>
     </div>
@@ -56,6 +56,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 50px;
 }
 
 .modal-image {
@@ -83,12 +84,12 @@ export default defineComponent({
         font-weight: bold;
         color: #2A385D;
         font-size: 20px;
-        margin-bottom: 10px;
     }
 
-    .description {
+    .location {
         font-size: 16px;
         color: #72788A;
+        margin-top: 10px;
     }
 }
 
