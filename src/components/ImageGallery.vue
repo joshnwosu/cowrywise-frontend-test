@@ -102,8 +102,8 @@ export default defineComponent({
                     <img :src="selectedImage?.urls.regular" alt="Selected Image" class="modal-image" />
 
                     <div class="modal-image-info">
-                        <p class="author">{{ selectedImage.user.name }}</p>
-                        <p class="description">{{ selectedImage.description }}</p>
+                        <p class="author">{{ selectedImage?.user?.name || '' }}</p>
+                        <p class="description">{{ selectedImage?.description || '' }}</p>
                     </div>
                 </div>
             </div>

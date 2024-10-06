@@ -16,8 +16,8 @@
 
 </template>
 
-<script>
-import { defineComponent, ref, watch } from 'vue';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'SearchBar',
