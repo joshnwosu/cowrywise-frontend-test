@@ -27,7 +27,6 @@ export default defineComponent({
 
         const onSearch = () => {
             emit('search', searchQuery.value);
-            console.log('hiii')
         };
 
         return {

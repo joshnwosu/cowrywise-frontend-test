@@ -45,8 +45,6 @@ export default defineComponent({
         };
 
         const showImage = (image: UnsplashImage) => {
-
-
             console.log('selected image: ', image)
         };
 

@@ -39,8 +39,6 @@ export default defineComponent({
         const showImage = (image: UnsplashImage) => {
             selectedImage.value = image;
             modalVisible.value = true;
-
-            console.log('selected image: ', image)
         };
 
         const closeModal = () => {
@@ -49,8 +47,6 @@ export default defineComponent({
         };
 
         const searchImages = (query: string) => {
-            console.log('key: ', query)
-            // loadImages(query);
 
             if (query.trim()) {
                 router.push({ name: 'SearchResults', params: { query: query.trim() } });
