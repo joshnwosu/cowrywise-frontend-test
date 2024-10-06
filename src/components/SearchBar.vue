@@ -10,10 +10,34 @@
         </svg>
 
 
-        <input placeholder="Search for photo" class="search-field" />
+        <input placeholder="Search for photo" class="search-field" type="text" v-model="searchQuery"
+            @keyup.enter="onSearch" />
     </div>
 
 </template>
+
+<script>
+import { defineComponent, ref, watch } from 'vue';
+
+export default defineComponent({
+    name: 'SearchBar',
+    emits: ['search'],
+    setup(_, { emit }) {
+        const searchQuery = ref('');
+
+        const onSearch = () => {
+            emit('search', searchQuery.value);
+            console.log('hiii')
+        };
+
+        return {
+            searchQuery,
+            onSearch,
+        };
+    },
+});
+</script>
+
 
 
 <style scoped>
